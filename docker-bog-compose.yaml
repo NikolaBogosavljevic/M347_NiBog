@@ -1,0 +1,26 @@
+version: "3.8"
+name: bog
+services:
+  container-1:
+    image: nginx:latest
+    container_name: bog-c-1
+    volumes:
+      - type: volume
+        source: bog-c-volume
+        target: "/var/www/html/"
+      - type: bind
+        source: "C:/M347_NiBog/KN05/scripts"
+        target: /usr/share/nginx/html
+      - type: tmpfs
+        target: "/bog"
+    ports:
+      - "8050:80"
+  container-2:
+    image: nginx:latest
+    container_name: bog-c-2
+    volumes:
+      - bog-c-volume:/usr/share/nginx/html
+    ports:
+      - "8040:80"
+volumes:
+  bog-c-volume: {}
